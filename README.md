@@ -1,3 +1,5 @@
+# 学生作业后台管理系统
+
 ## 系统模块
 
 ~~~
@@ -6,19 +8,8 @@ com.ruoyi
 ├── ruoyi-gateway         // 网关模块 [8080]
 ├── ruoyi-auth            // 认证中心 [9200]
 ├── ruoyi-api             // 接口模块
-│       └── ruoyi-api-system                          // 系统接口
 ├── ruoyi-common          // 通用模块
-│       └── ruoyi-common-core                         // 核心模块
-│       └── ruoyi-common-datascope                    // 权限范围
-│       └── ruoyi-common-datasource                   // 多数据源
-│       └── ruoyi-common-log                          // 日志记录
-│       └── ruoyi-common-redis                        // 缓存服务
-│       └── ruoyi-common-seata                        // 分布式事务
-│       └── ruoyi-common-security                     // 安全模块
-│       └── ruoyi-common-swagger                      // 系统接口
 ├── ruoyi-modules         // 业务模块
-│       └── ruoyi-system                              // 系统模块 [9201]
-│       └── ruoyi-file                                // 文件服务 [9300]
 ├──pom.xml                // 公共依赖
 ~~~
 
