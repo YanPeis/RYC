@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.HomeworkMapper">
+    
+    <resultMap type="Homework" id="HomeworkResult">
+        <result property="hmId"    column="hm_id"    />
+        <result property="hmSub"    column="hm_sub"    />
+        <result property="hmName"    column="hm_name"    />
+        <result property="hmClass"    column="hm_class"    />
+        <result property="hmUrl"    column="hm_url"    />
+        <result property="hmSubtime"    column="hm_subtime"    />
+        <result property="hmMark"    column="hm_mark"    />
+    </resultMap>
+
+    <sql id="selectHomeworkVo">
+        select hm_id, hm_sub, hm_name, hm_class, hm_url, hm_subtime, hm_mark from homework
+    </sql>
+
+    <select id="selectHomeworkList" parameterType="Homework" resultMap="HomeworkResult">
+        <include refid="selectHomeworkVo"/>
+        <where>  
+            <if test="hmSub != null  and hmSub != ''"> and hm_sub = #{hmSub}</if>
+            <if test="hmName != null  and hmName != ''"> and hm_name like concat('%', #{hmName}, '%')</if>
+            <if test="hmClass != null  and hmClass != ''"> and hm_class = #{hmClass}</if>
+            <if test="hmUrl != null  and hmUrl != ''"> and hm_url = #{hmUrl}</if>
+            <if test="hmSubtime != null "> and hm_subtime = #{hmSubtime}</if>
+            <if test="hmMark != null  and hmMark != ''"> and hm_mark = #{hmMark}</if>
+        </where>
+    </select>
+    
+    <select id="selectHomeworkByHmId" parameterType="Long" resultMap="HomeworkResult">
+        <include refid="selectHomeworkVo"/>
+        where hm_id = #{hmId}
+    </select>
+        
+    <insert id="insertHomework" parameterType="Homework">
+        insert into homework
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hmId != null">hm_id,</if>
+            <if test="hmSub != null">hm_sub,</if>
+            <if test="hmName != null">hm_name,</if>
+            <if test="hmClass != null">hm_class,</if>
+            <if test="hmUrl != null">hm_url,</if>
+            <if test="hmSubtime != null">hm_subtime,</if>
+            <if test="hmMark != null">hm_mark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hmId != null">#{hmId},</if>
+            <if test="hmSub != null">#{hmSub},</if>
+            <if test="hmName != null">#{hmName},</if>
+            <if test="hmClass != null">#{hmClass},</if>
+            <if test="hmUrl != null">#{hmUrl},</if>
+            <if test="hmSubtime != null">#{hmSubtime},</if>
+            <if test="hmMark != null">#{hmMark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHomework" parameterType="Homework">
+        update homework
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="hmSub != null">hm_sub = #{hmSub},</if>
+            <if test="hmName != null">hm_name = #{hmName},</if>
+            <if test="hmClass != null">hm_class = #{hmClass},</if>
+            <if test="hmUrl != null">hm_url = #{hmUrl},</if>
+            <if test="hmSubtime != null">hm_subtime = #{hmSubtime},</if>
+            <if test="hmMark != null">hm_mark = #{hmMark},</if>
+        </trim>
+        where hm_id = #{hmId}
+    </update>
+
+    <delete id="deleteHomeworkByHmId" parameterType="Long">
+        delete from homework where hm_id = #{hmId}
+    </delete>
+
+    <delete id="deleteHomeworkByHmIds" parameterType="String">
+        delete from homework where hm_id in 
+        <foreach item="hmId" collection="array" open="(" separator="," close=")">
+            #{hmId}
+        </foreach>
+    </delete>
+</mapper>
